@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: 'Noto Sans SC', 'Noto Sans', Arial, sans-serif;
+    color: #334156;
+    background-color: #ffffff;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-weight: 700;
+    color: #0F172A;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* ── Layout ─────────────────────────────────── */
+  .max-w-content {
+    max-width: 1200px;
+  }
+
+  /* ── Backgrounds ────────────────────────────── */
+  .hero-gradient {
+    background: linear-gradient(160deg, #0D1629 0%, #192133 100%);
+  }
+
+  .why-zenmo-bg {
+    background-color: #182234;
+  }
+
+  .cta-gradient {
+    background: linear-gradient(135deg, #4F47E6 0%, #7B3AED 100%);
+  }
+
+  /* ── Buttons ────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-zenmo-btn1 hover:bg-zenmo-btn2 text-white px-6 py-3 md:px-8 md:py-4 rounded-[10px] font-semibold transition-all duration-300 text-sm md:text-base;
+  }
+
+  /* ── Homepage section typography ───────────── */
+  .section-title {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold text-zenmo-secondary mb-3;
+  }
+
+  .section-subtitle {
+    @apply text-base text-zenmo-text leading-relaxed mb-8 md:mb-12 max-w-2xl;
+  }
+
+  /* ── Subpage section typography ─────────────── */
+  .section-heading {
+    @apply text-2xl md:text-3xl font-semibold text-zenmo-secondary;
+  }
+
+  .section-body {
+    @apply text-base text-zenmo-text leading-relaxed;
+  }
+
+  /* ── Icon containers ────────────────────────── */
+  .icon-framed-rounded {
+    @apply w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
