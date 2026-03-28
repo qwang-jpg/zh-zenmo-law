@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "package": "node package-theme.mjs",
-    "deploy": "vite build && node package-theme.mjs",
+    "package": "node scripts/package.js",
+    "deploy": "vite build && node scripts/package.js",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
