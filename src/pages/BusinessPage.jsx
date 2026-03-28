@@ -1,3 +1,4 @@
+import { useSEO } from '@/hooks/useSEO'
 import BusinessHero from '@/components/business/BusinessHero'
 import CompanyFormation from '@/components/business/CompanyFormation'
 import ContractSection from '@/components/business/ContractSection'
@@ -6,6 +7,11 @@ import ServiceProcess from '@/components/shared/ServiceProcess'
 import CTASection from '@/components/shared/CTASection'
 
 export default function BusinessPage() {
+  useSEO({
+    title: '美国商业法律服务',
+    description: '阡陌律师事务所为在美经营的企业提供系统化商业法律支持，涵盖LLC及Corporation公司注册设立、合同起草审核、商标版权专利等知识产权保护，助力企业合规运营。',
+  })
+
   return (
     <>
       <BusinessHero />

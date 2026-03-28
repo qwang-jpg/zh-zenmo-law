@@ -3,70 +3,67 @@
  * Zenmo Law 阡陌律师事务所 - WordPress Theme Functions
  */
 
-// ── 1. Enqueue Vite build assets ──────────────────────────────────────────────
+// ── 1. Enqueue Vite build assets via manifest.json ────────────────────────────
 add_action('wp_enqueue_scripts', function () {
-    $theme_uri  = get_template_directory_uri();
-    $theme_dir  = get_template_directory();
-    $assets_dir = $theme_dir . '/dist/assets';
+    $theme_uri     = get_template_directory_uri();
+    $theme_dir     = get_template_directory();
+    $manifest_file = $theme_dir . '/dist/.vite/manifest.json';
 
-    if (!is_dir($assets_dir)) {
+    if (!file_exists($manifest_file)) {
         return;
     }
 
-    // Find CSS files
-    $css_files = glob($assets_dir . '/*.css');
-    if ($css_files) {
-        foreach ($css_files as $i => $file) {
-            $filename = basename($file);
-            wp_enqueue_style(
-                'zenmo-css-' . $i,
-                $theme_uri . '/dist/assets/' . $filename,
-                [],
-                filemtime($file)
-            );
-        }
+    $manifest = json_decode(file_get_contents($manifest_file), true);
+    if (!$manifest) {
+        return;
     }
 
-    // Find JS files — load vendor/motion chunks first, then main entry last
-    $js_files = glob($assets_dir . '/*.js');
-    if (!$js_files) return;
+    // Find all entry chunks
+    foreach ($manifest as $key => $chunk) {
+        if (empty($chunk['isEntry'])) {
+            continue;
+        }
 
-    $chunks = [];
-    $main   = null;
-
-    foreach ($js_files as $file) {
-        $filename = basename($file);
-        if (strpos($filename, 'vendor') !== false || strpos($filename, 'motion') !== false) {
-            $chunks[] = $file;
-        } else {
-            // The largest non-vendor file is likely the main entry
-            if ($main === null || filesize($file) > filesize($main)) {
-                if ($main !== null) $chunks[] = $main;
-                $main = $file;
-            } else {
-                $chunks[] = $file;
+        // Enqueue CSS referenced by this entry
+        if (!empty($chunk['css'])) {
+            foreach ($chunk['css'] as $i => $css_path) {
+                $abs = $theme_dir . '/dist/' . $css_path;
+                wp_enqueue_style(
+                    'zenmo-css-' . $i,
+                    $theme_uri . '/dist/' . $css_path,
+                    [],
+                    file_exists($abs) ? filemtime($abs) : null
+                );
             }
         }
-    }
 
-    foreach ($chunks as $i => $file) {
-        $filename = basename($file);
-        wp_enqueue_script(
-            'zenmo-chunk-' . $i,
-            $theme_uri . '/dist/assets/' . $filename,
-            [],
-            filemtime($file),
-            true
-        );
-    }
+        // Enqueue imported chunks first (vendor, motion, etc.)
+        $chunk_deps = [];
+        if (!empty($chunk['imports'])) {
+            foreach ($chunk['imports'] as $i => $import_key) {
+                if (empty($manifest[$import_key]['file'])) {
+                    continue;
+                }
+                $handle  = 'zenmo-chunk-' . $i;
+                $abs     = $theme_dir . '/dist/' . $manifest[$import_key]['file'];
+                wp_enqueue_script(
+                    $handle,
+                    $theme_uri . '/dist/' . $manifest[$import_key]['file'],
+                    [],
+                    file_exists($abs) ? filemtime($abs) : null,
+                    true
+                );
+                $chunk_deps[] = $handle;
+            }
+        }
 
-    if ($main) {
-        $filename = basename($main);
+        // Enqueue the main entry script
+        $abs = $theme_dir . '/dist/' . $chunk['file'];
         wp_enqueue_script(
             'zenmo-main',
-            $theme_uri . '/dist/assets/' . $filename,
-            array_map(fn($i) => 'zenmo-chunk-' . $i, array_keys($chunks)),
-            filemtime($main),
+            $theme_uri . '/dist/' . $chunk['file'],
+            $chunk_deps,
+            file_exists($abs) ? filemtime($abs) : null,
             true
         );
     }

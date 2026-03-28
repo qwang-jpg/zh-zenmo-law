@@ -1,3 +1,4 @@
+import { useSEO } from '@/hooks/useSEO'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import H1BHero from '@/components/h1b/H1BHero'
@@ -32,7 +33,7 @@ function MidCTA() {
           </div>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 bg-zenmo-btn1 hover:bg-zenmo-btn2 text-white px-7 py-4 rounded-[10px] font-medium text-sm transition-all duration-300 hover:shadow-lg whitespace-nowrap flex-shrink-0"
+            className="btn-primary whitespace-nowrap flex-shrink-0 hover:shadow-lg"
           >
             免费咨询
             <ArrowRight size={16} strokeWidth={1.8} />
@@ -44,6 +45,11 @@ function MidCTA() {
 }
 
 export default function H1BPage() {
+  useSEO({
+    title: 'H-1B 非移民工作签证',
+    description: '阡陌律师事务所提供专业的H-1B工作签证申请服务，涵盖资质评估、抽签注册、LCA申报、材料准备及RFE应对。了解2026年加权抽签新政，免费预约资质评估。',
+  })
+
   return (
     <>
       <H1BHero />

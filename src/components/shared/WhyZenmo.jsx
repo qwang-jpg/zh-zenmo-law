@@ -34,7 +34,7 @@ const items = [
 
 export default function WhyZenmo({ title = '选择阡陌' }) {
   return (
-    <section className="border-t border-gray-100 py-14 md:py-20" style={{ backgroundColor: '#F8FAFC' }}>
+    <section className="border-t border-gray-100 py-14 md:py-20 bg-zenmo-light-bg">
       <div className="max-w-content mx-auto px-5 md:px-8 lg:px-0">
 
         <motion.div
@@ -43,7 +43,7 @@ export default function WhyZenmo({ title = '选择阡陌' }) {
           viewport={{ once: true }}
           className="mb-10 md:mb-12"
         >
-          <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#4F47E6' }}>Why Choose Us</p>
+          <p className="text-xs uppercase tracking-widest mb-3 text-zenmo-btn1">Why Choose Us</p>
           <h2 className="section-title">{title}</h2>
           <p className="section-subtitle !mb-0">
             专业、透明与长期陪伴——我们在思维方式、沟通机制与服务交付上的核心差异

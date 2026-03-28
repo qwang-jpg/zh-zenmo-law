@@ -55,8 +55,8 @@ export default function EmployerSection() {
               <h3 className="text-sm md:text-base font-semibold text-white">我们能为您的公司做什么</h3>
             </div>
             <div className="flex flex-col gap-4">
-              {capabilities.map((item, i) => (
-                <div key={i}>
+              {capabilities.map((item) => (
+                <div key={item.title}>
                   <span className="text-xs md:text-sm font-medium text-white/90 block">{item.title}</span>
                   <span className="text-xs text-zenmo-subheading/75 leading-relaxed">{item.desc}</span>
                 </div>
@@ -69,8 +69,8 @@ export default function EmployerSection() {
               <h3 className="text-sm md:text-base font-semibold text-white">我们如何与您的团队协作</h3>
             </div>
             <div className="flex flex-col gap-4">
-              {collaboration.map((item, i) => (
-                <div key={i}>
+              {collaboration.map((item) => (
+                <div key={item.title}>
                   <span className="text-xs md:text-sm font-medium text-white/90 block">{item.title}</span>
                   <span className="text-xs text-zenmo-subheading/75 leading-relaxed">{item.desc}</span>
                 </div>

@@ -53,7 +53,7 @@ export default function H1BCorePoints() {
         <div className="hidden md:grid md:grid-cols-4 divide-x divide-gray-200">
           {corePoints.map((point, i) => (
             <motion.div
-              key={i}
+              key={point.num}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -77,7 +77,7 @@ export default function H1BCorePoints() {
         <div className="md:hidden flex flex-col divide-y divide-gray-100">
           {corePoints.map((point, i) => (
             <motion.div
-              key={i}
+              key={point.num}
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

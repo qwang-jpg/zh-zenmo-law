@@ -33,7 +33,7 @@ export default function H1BPolicyAlert() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
           {alerts.map((item, i) => (
             <motion.div
-              key={i}
+              key={item.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

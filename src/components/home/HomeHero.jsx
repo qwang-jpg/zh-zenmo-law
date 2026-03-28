@@ -41,7 +41,7 @@ export default function HomeHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <Link to="/contact" className="btn-primary group inline-flex">
+          <Link to="/contact" className="btn-primary group">
             联系我们，免费咨询
             <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>

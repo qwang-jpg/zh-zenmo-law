@@ -98,7 +98,7 @@ export default function H1BFAQ() {
         <div className="flex flex-col gap-3">
           {faqs.map((item, i) => (
             <motion.div
-              key={i}
+              key={item.q}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

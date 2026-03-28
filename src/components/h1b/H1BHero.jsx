@@ -16,7 +16,7 @@ export default function H1BHero() {
       />
       <div className="relative z-10 max-w-content mx-auto w-full px-5 md:px-8 lg:px-0 py-12 md:py-20">
         <div className="w-full md:w-[85%] lg:w-1/2">
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -25,7 +25,7 @@ export default function H1BHero() {
             H-1B
             <br />
             非移民工作签证
-          </motion.h2>
+          </motion.h1>
         </div>
         <div className="w-full md:w-[85%] lg:w-1/2">
           <motion.p
@@ -43,10 +43,7 @@ export default function H1BHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-3 bg-zenmo-btn1 hover:bg-zenmo-btn2 text-white px-8 py-4 rounded-[10px] font-medium transition-all duration-300 hover:shadow-lg"
-            >
+            <Link to="/contact" className="btn-primary hover:shadow-lg">
               免费预约资质评估
               <ArrowRight size={18} />
             </Link>

@@ -13,7 +13,7 @@ export default function ImmigrationHero() {
         style={{ background: 'linear-gradient(160deg, rgba(25,33,51,0.93) 0%, rgba(25,33,51,0.82) 100%)' }}
       />
       <div className="relative z-10 max-w-content mx-auto w-full px-5 md:px-8 lg:px-0 py-16 md:py-20">
-        <motion.h2
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -22,7 +22,7 @@ export default function ImmigrationHero() {
           为不同发展阶段
           <br />
           提供系统化的美国移民法律支持
-        </motion.h2>
+        </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

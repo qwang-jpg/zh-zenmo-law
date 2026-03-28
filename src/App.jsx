@@ -1,13 +1,15 @@
+import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
 import PageLayout from '@/components/layout/PageLayout'
-import HomePage from '@/pages/HomePage'
-import AboutPage from '@/pages/AboutPage'
-import ImmigrationPage from '@/pages/ImmigrationPage'
-import H1BPage from '@/pages/H1BPage'
-import BusinessPage from '@/pages/BusinessPage'
-import IndividualPage from '@/pages/IndividualPage'
-import ContactPage from '@/pages/ContactPage'
+
+const HomePage        = lazy(() => import('@/pages/HomePage'))
+const AboutPage       = lazy(() => import('@/pages/AboutPage'))
+const ImmigrationPage = lazy(() => import('@/pages/ImmigrationPage'))
+const H1BPage         = lazy(() => import('@/pages/H1BPage'))
+const BusinessPage    = lazy(() => import('@/pages/BusinessPage'))
+const IndividualPage  = lazy(() => import('@/pages/IndividualPage'))
+const ContactPage     = lazy(() => import('@/pages/ContactPage'))
+const NotFoundPage    = lazy(() => import('@/pages/NotFoundPage'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -19,7 +21,11 @@ function ScrollToTop() {
 
 function AppRoutes() {
   return (
-    <>
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="w-8 h-8 rounded-full border-2 border-zenmo-btn1 border-t-transparent animate-spin" />
+      </div>
+    }>
       <ScrollToTop />
       <Routes>
         <Route element={<PageLayout />}>
@@ -30,16 +36,17 @@ function AppRoutes() {
           <Route path="/business-law"            element={<BusinessPage />} />
           <Route path="/individual-law"          element={<IndividualPage />} />
           <Route path="/contact"                 element={<ContactPage />} />
+          <Route path="*"                        element={<NotFoundPage />} />
         </Route>
       </Routes>
-    </>
+    </Suspense>
   )
 }
 
 export default function App() {
   return (
     <BrowserRouter
-      basename="/"
+      basename={import.meta.env.BASE_URL}
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
     >
       <AppRoutes />

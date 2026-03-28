@@ -40,7 +40,7 @@ export default function H1BFees() {
         >
           {fees.map((fee, i) => (
             <div
-              key={i}
+              key={fee.title}
               className={`flex items-center justify-between px-5 md:px-6 py-4 ${i < fees.length - 1 ? 'border-b border-gray-200' : ''}`}
             >
               <span className="text-sm md:text-base font-medium text-zenmo-secondary">{fee.title}</span>
@@ -48,10 +48,7 @@ export default function H1BFees() {
             </div>
           ))}
         </motion.div>
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-3 bg-zenmo-btn1 hover:bg-zenmo-btn2 text-white px-8 py-4 rounded-[10px] font-medium transition-all duration-300 hover:shadow-lg"
-        >
+        <Link to="/contact" className="btn-primary hover:shadow-lg">
           联系我们，免费咨询
           <ArrowRight size={18} />
         </Link>

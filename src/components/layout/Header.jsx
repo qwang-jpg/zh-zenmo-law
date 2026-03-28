@@ -1,40 +1,26 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, LogIn, Globe } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { assetUrl } from '@/lib/assetUrl'
 
-const EXTERNAL = 'target="_blank" rel="noopener noreferrer"'
-
 const topBarItems = [
-  {
-    icon: 'weixin',
-    text: 'ZENMOLAW',
-  },
-  {
-    icon: 'phone',
-    text: '+1 (800) 696 - 8608',
-  },
-  {
-    icon: 'email',
-    text: 'Contact@zenmolaw.com',
-  },
-  {
-    icon: 'clock',
-    text: 'Mon - Fri: 9:00 - 18:00 EST',
-  },
+  { icon: 'weixin', text: 'ZENMOLAW' },
+  { icon: 'phone',  text: '+1 (800) 696 - 8608' },
+  { icon: 'email',  text: 'Contact@zenmolaw.com' },
+  { icon: 'clock',  text: 'Mon - Fri: 9:00 - 18:00 EST' },
 ]
 
 const navItems = [
-  { label: '关于我们', path: '/about-us', external: false },
-  { label: '移民法律', path: '/immigration-law', external: false },
-  { label: '商业法律', path: '/business-law', external: false },
-  { label: '个人法务', path: '/individual-law', external: false },
-  { label: '最新资讯', path: null, disabled: true },
-  { label: '联系我们', path: '/contact', external: false },
+  { label: '关于我们', path: '/about-us',        external: false },
+  { label: '移民法律', path: '/immigration-law',  external: false },
+  { label: '商业法律', path: '/business-law',     external: false },
+  { label: '个人法务', path: '/individual-law',   external: false },
+  { label: '最新资讯', path: 'https://zh.zenmolaw.com/insights/', external: true },
+  { label: '联系我们', path: '/contact',          external: false },
 ]
 
-// External links (open in new tab)
-const PORTAL_URL = 'https://zenmolaw.com/portal'
+const PORTAL_URL  = 'https://zenmolaw.com/portal'
 const ENGLISH_URL = 'https://zenmolaw.com/'
 
 function TopBarIcon({ type }) {
@@ -72,8 +58,10 @@ export default function Header() {
   }, [location.pathname])
 
   const isActive = (item) =>
-    location.pathname === item.path ||
-    (item.path && item.path !== '/' && location.pathname.startsWith(item.path + '/'))
+    !item.external && (
+      location.pathname === item.path ||
+      (item.path && item.path !== '/' && location.pathname.startsWith(item.path + '/'))
+    )
 
   return (
     <>
@@ -81,8 +69,8 @@ export default function Header() {
       <div className="hidden md:block bg-zenmo-topbar w-full">
         <div className="max-w-content mx-auto flex items-center justify-between px-5 md:px-8 lg:px-0 min-h-[40px]">
           <div className="flex items-center gap-6 lg:gap-8">
-            {topBarItems.map((item, i) => (
-              <div key={i} className="flex items-center gap-2 text-zenmo-subheading">
+            {topBarItems.map((item) => (
+              <div key={item.icon} className="flex items-center gap-2 text-zenmo-subheading">
                 <TopBarIcon type={item.icon} />
                 <span className="text-xs">{item.text}</span>
               </div>
@@ -123,17 +111,19 @@ export default function Header() {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-7">
             {navItems.map((item) =>
-              item.disabled ? (
-                <span
-                  key="disabled"
-                  className="text-sm font-semibold text-zenmo-text cursor-default opacity-40"
-                  aria-disabled="true"
+              item.external ? (
+                <a
+                  key={item.label}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold transition-colors duration-200 hover:text-zenmo-btn1 text-zenmo-text"
                 >
                   {item.label}
-                </span>
+                </a>
               ) : (
                 <Link
-                  key={item.path}
+                  key={item.label}
                   to={item.path}
                   className={`text-sm font-semibold transition-colors duration-200 hover:text-zenmo-btn1 relative ${
                     isActive(item) ? 'text-zenmo-btn1' : 'text-zenmo-text'
@@ -171,46 +161,56 @@ export default function Header() {
         </nav>
 
         {/* Mobile Menu */}
-        <div
-          className={`lg:hidden bg-white border-t overflow-hidden transition-all duration-300 ease-in-out ${
-            mobileMenuOpen ? 'max-h-[480px] opacity-100' : 'max-h-0 opacity-0'
-          }`}
-          style={{ boxShadow: mobileMenuOpen ? '0 8px 24px rgba(0,0,0,0.08)' : 'none' }}
-        >
-          <nav className="flex flex-col py-2" aria-label="移动端导航">
-            {navItems.map((item) =>
-              item.disabled ? (
-                <span
-                  key="disabled"
-                  className="px-6 py-3.5 text-zenmo-secondary font-medium opacity-40 cursor-default"
-                >
-                  {item.label}
-                </span>
-              ) : (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`px-6 py-3.5 text-zenmo-secondary font-medium transition-colors hover:bg-zenmo-light-bg ${
-                    isActive(item) ? 'bg-zenmo-light-bg text-zenmo-btn1' : ''
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )
-            )}
-            <div className="px-6 py-3">
-              <a
-                href={PORTAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 w-full justify-center py-3 rounded-lg text-sm font-semibold border border-zenmo-btn1/30 text-zenmo-btn1 hover:bg-zenmo-btn1 hover:text-white transition-colors"
-              >
-                <LogIn size={14} strokeWidth={2} />
-                客户登录
-              </a>
-            </div>
-          </nav>
-        </div>
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="lg:hidden bg-white border-t overflow-hidden"
+              style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.08)' }}
+            >
+              <nav className="flex flex-col py-2" aria-label="移动端导航">
+                {navItems.map((item) =>
+                  item.external ? (
+                    <a
+                      key={item.label}
+                      href={item.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3.5 text-zenmo-secondary font-medium transition-colors hover:bg-zenmo-light-bg"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className={`px-6 py-3.5 text-zenmo-secondary font-medium transition-colors hover:bg-zenmo-light-bg ${
+                        isActive(item) ? 'bg-zenmo-light-bg text-zenmo-btn1' : ''
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
+                <div className="px-6 py-3">
+                  <a
+                    href={PORTAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 w-full justify-center py-3 rounded-lg text-sm font-semibold border border-zenmo-btn1/30 text-zenmo-btn1 hover:bg-zenmo-btn1 hover:text-white transition-colors"
+                  >
+                    <LogIn size={14} strokeWidth={2} />
+                    客户登录
+                  </a>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   )

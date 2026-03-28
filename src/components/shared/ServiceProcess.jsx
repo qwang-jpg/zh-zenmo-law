@@ -41,7 +41,7 @@ export default function ServiceProcess({ variant = 'home' }) {
           viewport={{ once: true }}
           className="mb-10 md:mb-12"
         >
-          <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#4F47E6' }}>Our Process</p>
+          <p className="text-xs uppercase tracking-widest mb-3 text-zenmo-btn1">Our Process</p>
           <h2 className={isSection ? 'section-heading mb-2' : 'section-title'}>服务方式</h2>
           <p className={isSection ? 'section-body' : 'section-subtitle !mb-0'}>
             以流程管理与风险控制为核心，确保每一项法律事务在清晰、可预期的框架内推进
@@ -59,25 +59,16 @@ export default function ServiceProcess({ variant = 'home' }) {
               className="relative bg-white rounded-2xl p-7 border border-gray-100 flex items-start gap-5"
               style={{ boxShadow: '0 2px 12px rgba(15,23,42,0.05)' }}
             >
-              <span
-                className="absolute top-4 right-5 text-[48px] font-bold leading-none select-none"
-                style={{ color: '#4F47E610' }}
-              >
+              <span className="absolute top-4 right-5 text-[48px] font-bold leading-none select-none text-zenmo-btn1/[0.06]">
                 {step.number}
               </span>
 
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: 'rgba(79,71,230,0.08)', color: '#4F47E6' }}
-              >
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 bg-zenmo-btn1/[0.08] text-zenmo-btn1">
                 {step.icon}
               </div>
 
               <div>
-                <span
-                  className="text-[10px] font-bold uppercase tracking-widest mb-1.5 block"
-                  style={{ color: '#4F47E6' }}
-                >
+                <span className="text-[10px] font-bold uppercase tracking-widest mb-1.5 block text-zenmo-btn1">
                   Step {step.number}
                 </span>
                 <h3 className="text-base font-semibold text-zenmo-secondary mb-2 leading-snug">{step.title}</h3>

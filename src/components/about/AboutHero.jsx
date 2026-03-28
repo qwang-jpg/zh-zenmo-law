@@ -14,14 +14,14 @@ export default function AboutHero() {
       />
       <div className="relative z-10 max-w-content mx-auto w-full px-5 md:px-8 lg:px-0 py-12 md:py-20">
         <div className="w-full md:w-[85%] lg:w-1/2">
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-[28px] leading-[1.3] md:text-4xl lg:text-[50px] lg:leading-[1.2] font-semibold text-white mb-4 md:mb-6"
           >
             关于阡陌
-          </motion.h2>
+          </motion.h1>
         </div>
         <div className="w-full md:w-[85%] lg:w-1/2">
           <motion.p

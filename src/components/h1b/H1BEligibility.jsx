@@ -38,7 +38,7 @@ function ChecklistCard({ icon, title, subtitle, items, delay }) {
       </div>
       <div className="px-5 py-4 flex flex-col gap-3">
         {items.map((item, i) => (
-          <div key={i} className="flex items-start gap-3">
+          <div key={item} className="flex items-start gap-3">
             <span className="flex-shrink-0 w-4 h-4 rounded-sm flex items-center justify-center text-[9px] font-bold mt-0.5" style={{ backgroundColor: 'rgba(126,61,237,0.08)', color: '#7E3DED' }}>
               {i + 1}
             </span>

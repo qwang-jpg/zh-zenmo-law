@@ -3,11 +3,11 @@ import { MessageCircle, Phone, Mail, MapPin, Clock } from 'lucide-react'
 import { assetUrl } from '@/lib/assetUrl'
 
 const contactItems = [
-  { label: '微信', value: 'ZENMOLAW', icon: <MessageCircle size={18} strokeWidth={1.8} /> },
-  { label: '电话', value: '(800) 696-8608', icon: <Phone size={18} strokeWidth={1.8} /> },
-  { label: '邮箱', value: 'contact@zenmolaw.com', icon: <Mail size={18} strokeWidth={1.8} /> },
-  { label: '地址', value: '747 3rd Ave, New York NY 10017', icon: <MapPin size={18} strokeWidth={1.8} /> },
-  { label: '工作时间', value: 'Mon - Fri 9:00 - 18:00 EST', icon: <Clock size={18} strokeWidth={1.8} /> },
+  { label: '微信',     value: 'ZENMOLAW',                       icon: <MessageCircle size={18} strokeWidth={1.8} /> },
+  { label: '电话',     value: '(800) 696-8608',                 icon: <Phone size={18} strokeWidth={1.8} /> },
+  { label: '邮箱',     value: 'contact@zenmolaw.com',           icon: <Mail size={18} strokeWidth={1.8} /> },
+  { label: '地址',     value: '747 3rd Ave, New York NY 10017', icon: <MapPin size={18} strokeWidth={1.8} /> },
+  { label: '工作时间', value: 'Mon - Fri 9:00 - 18:00 EST',     icon: <Clock size={18} strokeWidth={1.8} /> },
 ]
 
 export default function ContactInfo() {
@@ -26,8 +26,8 @@ export default function ContactInfo() {
           >
             <h2 className="section-heading mb-8">联系方式</h2>
             <div className="flex flex-col gap-4 mb-8">
-              {contactItems.map((item, i) => (
-                <div key={i} className="flex items-center gap-4">
+              {contactItems.map((item) => (
+                <div key={item.label} className="flex items-center gap-4">
                   <div
                     className="icon-framed-rounded flex-shrink-0"
                     style={{ backgroundColor: '#F5F3FF', borderColor: '#F5F3FF', color: '#7E3DED' }}
@@ -50,6 +50,9 @@ export default function ContactInfo() {
                 src={assetUrl('/images/QR Codes/微信客服二维码.png')}
                 alt="微信扫码免费咨询"
                 className="w-24 h-24 md:w-28 md:h-28 rounded"
+                width="112"
+                height="112"
+                loading="lazy"
               />
               <div>
                 <h4 className="text-sm md:text-base font-semibold text-zenmo-secondary mb-1">微信扫码免费咨询</h4>
