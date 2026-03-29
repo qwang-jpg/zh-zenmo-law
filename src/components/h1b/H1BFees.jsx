@@ -13,7 +13,7 @@ const fees = [
 
 export default function H1BFees() {
   return (
-    <section className="py-12 md:py-20">
+    <section className="py-12 md:py-20 bg-white">
       <div className="max-w-content mx-auto px-5 md:px-8 lg:px-0">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

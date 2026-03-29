@@ -46,7 +46,7 @@ export default function H1BWhyZenmo() {
                 {item.icon}
               </div>
               <h3 className="text-sm md:text-base font-semibold text-zenmo-secondary mb-2">{item.title}</h3>
-              <p className="text-xs md:text-sm text-zenmo-text leading-relaxed">{item.desc}</p>
+              <p className="text-sm text-zenmo-text leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>

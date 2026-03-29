@@ -1,119 +1,100 @@
+import { useEffect } from 'react'
+
+const SITE_NAME   = '阡陌律师事务所'
+const DEFAULT_IMG = '/wp-content/themes/zh-zenmo-law/images/Logos/Website-logo.png'
+const BASE_URL    = 'https://zh.zenmolaw.com'
+
 /**
  * useSEO — 页面级 SEO 管理 Hook
  *
- * 用法（在每个 Page 组件顶层调用）：
- *
- *   import { useSEO } from '@/hooks/useSEO'
- *
- *   export default function HomePage() {
- *     useSEO({
- *       title: '首页',
- *       description: '阡陌律师事务所立足纽约曼哈顿...',
- *     })
- *     return <> ... </>
- *   }
- *
- * 说明：
- *  - title 留空时直接使用 SITE_NAME 作为文档标题
- *  - ogImage 填写相对于网站根目录的完整路径（如有独立 OG 图时使用）
- *  - noindex 仅对不应被收录的页面（如 404）设为 true
- *  - 当前 DEFAULT_IMG 使用 Logo 图片作为默认 OG 图，
- *    日后准备好专属 1200×630 的 OG 图片后，
- *    将 DEFAULT_IMG 替换为对应路径即可，无需改动各页面
+ * @param {object} options
+ * @param {string} options.title        页面标题（最终格式：{title} | 阡陌律师事务所）
+ * @param {string} options.description  页面描述（建议 60–80 中文字符）
+ * @param {string} [options.ogImage]    OG 图片路径（留空使用全站默认图）
+ * @param {string} [options.canonical]  Canonical URL（留空自动使用当前路径）
+ * @param {object|object[]} [options.schema]  JSON-LD 结构化数据（单个或数组）
  */
-
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-
-// ── 全站常量 ──────────────────────────────────────────────────────────────────
-const SITE_NAME    = '阡陌律师事务所'
-const SITE_URL     = 'https://zh.zenmolaw.com'
-const DEFAULT_DESC = '阡陌律师事务所立足纽约曼哈顿，为个人及企业提供美国移民、商业及个人法律服务。专注H-1B、绿卡、公司设立等法律事务。'
-
-// 当前使用 Logo 作为 OG 图片临时方案
-// 待专属 OG 图（1200×630px）准备好后替换此路径即可
-const DEFAULT_IMG  = '/wp-content/themes/zh-zenmo-law/images/Logos/Website-logo.png'
-
-// ── 工具函数 ──────────────────────────────────────────────────────────────────
-
-/**
- * 设置或更新 <meta> 标签
- * @param {string} key     - name 或 property 的值
- * @param {string} content - meta content
- * @param {'name'|'property'} attr - 属性选择器类型
- */
-function setMeta(key, content, attr = 'name') {
-  if (!content) return
-  let el = document.querySelector(`meta[${attr}="${key}"]`)
-  if (!el) {
-    el = document.createElement('meta')
-    el.setAttribute(attr, key)
-    document.head.appendChild(el)
-  }
-  el.setAttribute('content', content)
-}
-
-/**
- * 设置或更新 <link rel="canonical">
- */
-function setCanonical(href) {
-  let el = document.querySelector('link[rel="canonical"]')
-  if (!el) {
-    el = document.createElement('link')
-    el.setAttribute('rel', 'canonical')
-    document.head.appendChild(el)
-  }
-  el.setAttribute('href', href)
-}
-
-// ── Hook ──────────────────────────────────────────────────────────────────────
-
-/**
- * @param {object}  options
- * @param {string}  [options.title]       - 页面标题（不含站名）
- * @param {string}  [options.description] - 页面描述（建议 120–160 字符）
- * @param {string}  [options.ogImage]     - OG 图片完整路径（留空则使用 DEFAULT_IMG）
- * @param {string}  [options.ogType]      - OG 类型，默认 'website'
- * @param {boolean} [options.noindex]     - 是否禁止搜索引擎收录，默认 false
- */
-export function useSEO({
-  title,
-  description,
-  ogImage,
-  ogType  = 'website',
-  noindex = false,
-} = {}) {
-  const { pathname } = useLocation()
-
+export function useSEO({ title, description, ogImage, canonical, schema } = {}) {
   useEffect(() => {
-    const fullTitle    = title ? `${title} | ${SITE_NAME}` : SITE_NAME
-    const desc         = description || DEFAULT_DESC
-    const canonicalUrl = `${SITE_URL}${pathname}`
-    const imageUrl     = `${SITE_URL}${ogImage || DEFAULT_IMG}`
+    const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME
+    const image     = ogImage  ? `${BASE_URL}${ogImage}` : `${BASE_URL}${DEFAULT_IMG}`
+    const canonicalUrl = canonical
+      ? `${BASE_URL}${canonical}`
+      : `${BASE_URL}${window.location.pathname}`
 
-    // ── 文档标题 ──────────────────────────────────────────────────────────────
+    // ── Title ──────────────────────────────────────────────────────────────
     document.title = fullTitle
 
-    // ── 基础 Meta ─────────────────────────────────────────────────────────────
-    setMeta('description',   desc)
-    setMeta('robots', noindex ? 'noindex, nofollow' : 'index, follow')
+    // ── Helper: upsert a <meta> tag ────────────────────────────────────────
+    function setMeta(selector, attr, value) {
+      let el = document.querySelector(selector)
+      if (!el) {
+        el = document.createElement('meta')
+        const [attrName, attrVal] = selector.match(/\[(.+?)="(.+?)"\]/).slice(1)
+        el.setAttribute(attrName, attrVal)
+        document.head.appendChild(el)
+      }
+      el.setAttribute(attr, value)
+    }
 
-    // ── Open Graph ────────────────────────────────────────────────────────────
-    setMeta('og:title',       fullTitle,    'property')
-    setMeta('og:description', desc,         'property')
-    setMeta('og:url',         canonicalUrl, 'property')
-    setMeta('og:image',       imageUrl,     'property')
-    setMeta('og:type',        ogType,       'property')
-    setMeta('og:locale',      'zh_CN',      'property')
-    setMeta('og:site_name',   SITE_NAME,    'property')
+    // ── Helper: upsert a <link> tag ────────────────────────────────────────
+    function setLink(rel, href) {
+      let el = document.querySelector(`link[rel="${rel}"]`)
+      if (!el) {
+        el = document.createElement('link')
+        el.setAttribute('rel', rel)
+        document.head.appendChild(el)
+      }
+      el.setAttribute('href', href)
+    }
 
-    // ── Twitter Card ──────────────────────────────────────────────────────────
-    setMeta('twitter:card',        'summary_large_image')
-    setMeta('twitter:title',       fullTitle)
-    setMeta('twitter:description', desc)
-    setMeta('twitter:image',       imageUrl)
+    // ── Description ────────────────────────────────────────────────────────
+    if (description) {
+      setMeta('meta[name="description"]',         'content', description)
+    }
 
-    // ── Canonical ─────────────────────────────────────────────────────────────
-    setCanonical(canonicalUrl)
-  }, [title, description, ogImage, ogType, noindex, pathname])
+    // ── Canonical ──────────────────────────────────────────────────────────
+    setLink('canonical', canonicalUrl)
+
+    // ── Open Graph ────────────────────────────────────────────────────────
+    setMeta('meta[property="og:title"]',          'content', fullTitle)
+    setMeta('meta[property="og:site_name"]',      'content', SITE_NAME)
+    setMeta('meta[property="og:type"]',           'content', 'website')
+    setMeta('meta[property="og:url"]',            'content', canonicalUrl)
+    setMeta('meta[property="og:image"]',          'content', image)
+    setMeta('meta[property="og:image:width"]',    'content', '1200')
+    setMeta('meta[property="og:image:height"]',   'content', '630')
+    setMeta('meta[property="og:locale"]',         'content', 'zh_CN')
+    if (description) {
+      setMeta('meta[property="og:description"]',  'content', description)
+    }
+
+    // ── Twitter Card ──────────────────────────────────────────────────────
+    setMeta('meta[name="twitter:card"]',          'content', 'summary_large_image')
+    setMeta('meta[name="twitter:title"]',         'content', fullTitle)
+    setMeta('meta[name="twitter:image"]',         'content', image)
+    if (description) {
+      setMeta('meta[name="twitter:description"]', 'content', description)
+    }
+
+    // ── JSON-LD Schema ────────────────────────────────────────────────────
+    // Remove any previously injected schema tags from this hook
+    document.querySelectorAll('script[data-useseo="true"]').forEach(el => el.remove())
+
+    if (schema) {
+      const schemas = Array.isArray(schema) ? schema : [schema]
+      schemas.forEach(s => {
+        const script = document.createElement('script')
+        script.type = 'application/ld+json'
+        script.setAttribute('data-useseo', 'true')
+        script.textContent = JSON.stringify(s)
+        document.head.appendChild(script)
+      })
+    }
+
+    // ── Cleanup on unmount ────────────────────────────────────────────────
+    return () => {
+      document.querySelectorAll('script[data-useseo="true"]').forEach(el => el.remove())
+    }
+  }, [title, description, ogImage, canonical, schema])
 }

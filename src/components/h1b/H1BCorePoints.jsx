@@ -1,103 +1,119 @@
 import { motion } from 'framer-motion'
+import { Check, Minus } from 'lucide-react'
 
-const corePoints = [
-  {
-    num: '01',
-    en: 'Specialty Occupation',
-    title: '专业性职位要求',
-    desc: '岗位需要具备与职位职责直接相关的本科及以上学历（或等同资历），并能以职责、行业惯例与雇主用工结构进行证明。',
-  },
-  {
-    num: '02',
-    en: 'Employer-Led Process',
-    title: '雇主主导的申请机制',
-    desc: 'H-1B 由雇主发起并承担主要合规责任，包括岗位设定、工资标准、LCA 提交、用工管理与记录保留等。',
-  },
-  {
-    num: '03',
-    en: 'LCA / Prevailing Wage',
-    title: '工资标准与合规要求',
-    desc: '雇主需承诺支付不低于适用工资标准的薪资，并遵守与公告、工作地点、工作内容变动相关的合规义务。',
-  },
-  {
-    num: '04',
-    en: 'Cap & Timeline',
-    title: '名额与时间线',
-    desc: '常规 H-1B 申请受年度名额限制并涉及抽签；部分雇主或岗位可能属于免抽签（cap-exempt）路径，是否适用需结合雇主性质与岗位安排评估。',
-  },
+const suitable = [
+  '拥有本科或以上学历',
+  '专业背景与岗位直接相关',
+  '岗位需要专业知识支持',
+  '雇主有真实招聘需求',
+  '薪资符合行业标准',
+  '希望在美国长期发展职业',
 ]
+
+const needsEval = [
+  '专业与岗位并非完全对应',
+  '岗位职责较为综合或跨领域',
+  '公司规模较小或成立时间较短',
+  '岗位为远程或多地点工作模式',
+  '申请人为海外学历',
+  '岗位属于较新兴职业方向',
+]
+
+// 根据列数判断是否为最后一行
+function isLastRow(i, total, cols) {
+  const lastRowStart = total - ((total % cols) || cols)
+  return i >= lastRowStart
+}
+
+function Group({ title, subtitle, items, variant, delay }) {
+  const isGood = variant === 'good'
+  const accentColor = isGood ? '#4F47E6' : '#94A3B8'
+  const iconBg    = isGood ? 'rgba(79,71,230,0.08)'   : 'rgba(148,163,184,0.12)'
+  const iconColor = isGood ? '#4F47E6' : '#94A3B8'
+  const Icon = isGood ? Check : Minus
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="h-4 w-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: accentColor }} />
+        <span className="text-sm font-semibold text-zenmo-secondary">{title}</span>
+        <span className="hidden md:inline text-xs text-zenmo-desc-gray">{subtitle}</span>
+      </div>
+      <p className="md:hidden text-xs text-zenmo-desc-gray mb-4 leading-relaxed">{subtitle}</p>
+
+      {/* Grid: 3 cols on desktop, 2 cols on mobile */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6">
+        {items.map((text, i) => (
+          <div
+            key={text}
+            className="flex items-center gap-2.5 py-2.5"
+            style={{
+              // 手机2列、桌面3列分别计算是否末行，用 CSS 无法区分，统一用最保守策略：
+              // 只要不是 3 列末行就加线（3列比2列更严格，多数情况正确）
+              borderBottom: !isLastRow(i, items.length, 3) ? '1px solid #F1F5F9' : 'none',
+            }}
+          >
+            <div
+              className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: iconBg }}
+            >
+              <Icon size={9} strokeWidth={2.5} style={{ color: iconColor }} />
+            </div>
+            <span className="text-sm text-zenmo-text leading-snug">{text}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
 
 export default function H1BCorePoints() {
   return (
-    <section className="py-12 md:py-20 overflow-hidden">
+    <section className="py-12 md:py-20 bg-white">
       <div className="max-w-content mx-auto px-5 md:px-8 lg:px-0">
+
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="section-heading mb-2"
         >
-          H-1B 申请核心要点
+          H-1B 适用情况
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.08 }}
-          className="section-body mb-10 md:mb-14"
+          className="section-body mb-10 md:mb-12"
         >
-          了解 H-1B 的四个基础维度，是判断申请可行性的前提
+          在申请前进行合理评估，有助于降低补件或延期风险
         </motion.p>
 
-        {/* Desktop: 4-column with dividers */}
-        <div className="hidden md:grid md:grid-cols-4 divide-x divide-gray-200">
-          {corePoints.map((point, i) => (
-            <motion.div
-              key={point.num}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.09 }}
-              className="flex flex-col px-7 first:pl-0 last:pr-0 group"
-            >
-              <div className="h-0.5 w-8 mb-6 transition-all duration-500 group-hover:w-full" style={{ backgroundColor: '#7E3DED' }} />
-              <span className="text-6xl font-black leading-none mb-4 select-none" style={{ color: 'rgba(126,61,237,0.08)' }}>
-                {point.num}
-              </span>
-              <span className="text-[10px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#7E3DED' }}>
-                {point.en}
-              </span>
-              <h3 className="text-sm font-semibold text-zenmo-secondary mb-3 leading-snug">{point.title}</h3>
-              <p className="text-xs text-zenmo-text leading-relaxed mt-auto">{point.desc}</p>
-            </motion.div>
-          ))}
+        <div className="flex flex-col gap-8">
+          <Group
+            title="通常适合申请"
+            subtitle="满足以下条件的申请人，申请路径相对清晰"
+            items={suitable}
+            variant="good"
+            delay={0}
+          />
+          <div className="border-t border-gray-100" />
+          <Group
+            title="需要额外策略评估"
+            subtitle="存在以下情形时，建议提前与律师制定应对方案"
+            items={needsEval}
+            variant="warn"
+            delay={0.1}
+          />
         </div>
 
-        {/* Mobile: vertical list */}
-        <div className="md:hidden flex flex-col divide-y divide-gray-100">
-          {corePoints.map((point, i) => (
-            <motion.div
-              key={point.num}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="flex gap-4 py-5"
-            >
-              <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
-                <div className="w-0.5 h-full min-h-[3rem]" style={{ backgroundColor: 'rgba(126,61,237,0.2)' }} />
-                <span className="text-xs font-black" style={{ color: 'rgba(126,61,237,0.35)' }}>{point.num}</span>
-              </div>
-              <div className="flex-1 pb-1">
-                <span className="text-[10px] font-semibold tracking-widest uppercase block mb-1.5" style={{ color: '#7E3DED' }}>
-                  {point.en}
-                </span>
-                <h3 className="text-sm font-semibold text-zenmo-secondary mb-2 leading-snug">{point.title}</h3>
-                <p className="text-xs text-zenmo-text leading-relaxed">{point.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   )
