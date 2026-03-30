@@ -6,6 +6,7 @@ const HomePage        = lazy(() => import('@/pages/HomePage'))
 const AboutPage       = lazy(() => import('@/pages/AboutPage'))
 const ImmigrationPage = lazy(() => import('@/pages/ImmigrationPage'))
 const H1BPage         = lazy(() => import('@/pages/H1BPage'))
+const L1Page          = lazy(() => import('@/pages/L1Page'))
 const BusinessPage    = lazy(() => import('@/pages/BusinessPage'))
 const IndividualPage  = lazy(() => import('@/pages/IndividualPage'))
 const ContactPage     = lazy(() => import('@/pages/ContactPage'))
@@ -33,6 +34,7 @@ function AppRoutes() {
           <Route path="/about-us"                element={<AboutPage />} />
           <Route path="/immigration-law"         element={<ImmigrationPage />} />
           <Route path="/immigration-law/h-1b"    element={<H1BPage />} />
+          <Route path="/immigration-law/l-1"     element={<L1Page />} />
           <Route path="/business-law"            element={<BusinessPage />} />
           <Route path="/individual-law"          element={<IndividualPage />} />
           <Route path="/contact"                 element={<ContactPage />} />

@@ -104,7 +104,7 @@ const legalServiceSchema = {
   '@type': 'LegalService',
   name: '阡陌律师事务所 — H-1B 签证申请服务',
   description: '阡陌律师事务所提供专业中文 H-1B 工作签证申请服务，涵盖资质评估、抽签注册、LCA 申报、材料准备及 RFE 应对，支持初创公司及复杂案件。',
-  url: 'https://zh.zenmolaw.com/h1b',
+  url: 'https://zh.zenmolaw.com/immigration-law/h-1b',
   areaServed: {
     '@type': 'Country',
     name: 'United States',
@@ -124,7 +124,7 @@ export default function H1BPage() {
   useSEO({
     title: 'H-1B 签证申请律师服务 · 抽签注册到获批全程代办',
     description: '阡陌律师事务所（纽约）提供专业中文 H-1B 工作签证申请服务。涵盖资质评估、抽签注册、LCA 申报、材料准备及 RFE 应对。熟悉 2026 年加权抽签新政与 $100,000 政策，支持初创公司及复杂案件，未中签提供免费替代路径评估。',
-    canonical: '/h1b',
+    canonical: '/immigration-law/h-1b',
     schema: [faqSchema, legalServiceSchema],
   })
 

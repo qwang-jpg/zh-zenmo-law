@@ -133,7 +133,7 @@ export default function NotFoundPage() {
 
             <Link
               to="/contact"
-              className="btn-primary"
+              className="btn-primary group"
             >
               联系我们，免费咨询
               <ArrowRight size={15} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1" />

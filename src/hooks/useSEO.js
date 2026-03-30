@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
 const SITE_NAME   = '阡陌律师事务所'
-const DEFAULT_IMG = '/wp-content/themes/zh-zenmo-law/images/Logos/Website-logo.png'
 const BASE_URL    = 'https://zh.zenmolaw.com'
 
 /**
@@ -13,11 +12,15 @@ const BASE_URL    = 'https://zh.zenmolaw.com'
  * @param {string} [options.ogImage]    OG 图片路径（留空使用全站默认图）
  * @param {string} [options.canonical]  Canonical URL（留空自动使用当前路径）
  * @param {object|object[]} [options.schema]  JSON-LD 结构化数据（单个或数组）
+ * @param {boolean} [options.noindex]   设为 true 时注入 noindex, nofollow（如 404 页面）
  */
-export function useSEO({ title, description, ogImage, canonical, schema } = {}) {
+export function useSEO({ title, description, ogImage, canonical, schema, noindex } = {}) {
   useEffect(() => {
-    const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME
-    const image     = ogImage  ? `${BASE_URL}${ogImage}` : `${BASE_URL}${DEFAULT_IMG}`
+    const base         = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
+    const DEFAULT_IMG  = `${base}/images/Logos/Website-logo.png`
+
+    const fullTitle    = title ? `${title} | ${SITE_NAME}` : SITE_NAME
+    const image        = ogImage ? `${BASE_URL}${ogImage}` : `${BASE_URL}${DEFAULT_IMG}`
     const canonicalUrl = canonical
       ? `${BASE_URL}${canonical}`
       : `${BASE_URL}${window.location.pathname}`
@@ -25,13 +28,14 @@ export function useSEO({ title, description, ogImage, canonical, schema } = {}) 
     // ── Title ──────────────────────────────────────────────────────────────
     document.title = fullTitle
 
-    // ── Helper: upsert a <meta> tag ────────────────────────────────────────
+    // ── Helper: upsert a <meta> tag（带 data-useseo 标记统一管理） ──────────
     function setMeta(selector, attr, value) {
       let el = document.querySelector(selector)
       if (!el) {
         el = document.createElement('meta')
         const [attrName, attrVal] = selector.match(/\[(.+?)="(.+?)"\]/).slice(1)
         el.setAttribute(attrName, attrVal)
+        el.setAttribute('data-useseo', 'true')
         document.head.appendChild(el)
       }
       el.setAttribute(attr, value)
@@ -43,10 +47,14 @@ export function useSEO({ title, description, ogImage, canonical, schema } = {}) 
       if (!el) {
         el = document.createElement('link')
         el.setAttribute('rel', rel)
+        el.setAttribute('data-useseo', 'true')
         document.head.appendChild(el)
       }
       el.setAttribute('href', href)
     }
+
+    // ── Robots ─────────────────────────────────────────────────────────────
+    setMeta('meta[name="robots"]', 'content', noindex ? 'noindex, nofollow' : 'index, follow')
 
     // ── Description ────────────────────────────────────────────────────────
     if (description) {
@@ -62,8 +70,6 @@ export function useSEO({ title, description, ogImage, canonical, schema } = {}) 
     setMeta('meta[property="og:type"]',           'content', 'website')
     setMeta('meta[property="og:url"]',            'content', canonicalUrl)
     setMeta('meta[property="og:image"]',          'content', image)
-    setMeta('meta[property="og:image:width"]',    'content', '1200')
-    setMeta('meta[property="og:image:height"]',   'content', '630')
     setMeta('meta[property="og:locale"]',         'content', 'zh_CN')
     if (description) {
       setMeta('meta[property="og:description"]',  'content', description)
@@ -78,7 +84,6 @@ export function useSEO({ title, description, ogImage, canonical, schema } = {}) 
     }
 
     // ── JSON-LD Schema ────────────────────────────────────────────────────
-    // Remove any previously injected schema tags from this hook
     document.querySelectorAll('script[data-useseo="true"]').forEach(el => el.remove())
 
     if (schema) {
@@ -94,7 +99,7 @@ export function useSEO({ title, description, ogImage, canonical, schema } = {}) 
 
     // ── Cleanup on unmount ────────────────────────────────────────────────
     return () => {
-      document.querySelectorAll('script[data-useseo="true"]').forEach(el => el.remove())
+      document.querySelectorAll('[data-useseo="true"]').forEach(el => el.remove())
     }
-  }, [title, description, ogImage, canonical, schema])
+  }, [title, description, ogImage, canonical, schema, noindex])
 }
