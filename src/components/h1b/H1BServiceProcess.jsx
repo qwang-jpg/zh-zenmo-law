@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import ServiceProcessSection from '@/components/shared/Immigration-ServiceProcess'
 
 const phases = [
   {
@@ -35,132 +35,20 @@ const phases = [
       { num: '14', title: '等待移民局审理结果',        desc: '正常审理约 3 个月；加急服务可在 15 个工作日内获得结果。' },
       { num: '15', title: '收到 H-1B 审理结果',       desc: '雇主与律师分别收到移民局审理通知，律师协助解读结果并指导后续步骤。' },
     ],
-    rfeNote: true,
+    rfeNote: {
+      title: '关于补件（RFE）',
+      content:
+        '在审理过程中，移民局可能发出补件通知（RFE），要求进一步说明或证明材料。通过合理的申请策略，通常可以有效降低补件风险。RFE 并不代表案件会被拒绝，大多数收到补件通知的案件在提供充分材料后仍可获得批准；但补件通常会延长审理周期并增加准备成本，因此在申请前进行结构性分析，通常比事后补救更为重要。',
+    },
   },
 ]
 
-function StepItem({ step, showBorderBottom, showBorderRight }) {
-  return (
-    <div
-      className="flex items-start gap-3 py-4 px-5"
-      style={{
-        borderBottom: showBorderBottom ? '1px solid #F1F5F9' : 'none',
-        borderRight:  showBorderRight  ? '1px solid #F1F5F9' : 'none',
-      }}
-    >
-      <span
-        className="flex-shrink-0 text-xs font-bold tabular-nums mt-0.5 w-6 text-center"
-        style={{ color: '#CBD5E1' }}
-      >
-        {step.num}
-      </span>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-zenmo-secondary leading-snug mb-1">
-          {step.title}
-        </p>
-        <p className="text-sm text-zenmo-text leading-relaxed">
-          {step.desc}
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function PhaseBlock({ phase, phaseIndex }) {
-  const { steps, rfeNote } = phase
-  const cols = 2
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: phaseIndex * 0.06 }}
-    >
-      {/* Phase label */}
-      <div className="flex items-center gap-3 mb-3">
-        <span
-          className="text-xs font-semibold px-3 py-1 rounded-full"
-          style={{ backgroundColor: 'rgba(79,71,230,0.08)', color: '#4F47E6' }}
-        >
-          {phase.phase}
-        </span>
-        <div className="h-px flex-1 bg-gray-200" />
-      </div>
-
-      {/* Steps grid */}
-      <div
-        className="rounded-xl overflow-hidden border border-gray-100 bg-white"
-        style={{ boxShadow: '0 1px 8px rgba(15,23,42,0.04)' }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {steps.map((step, i) => {
-            const isLastRow   = i >= steps.length - (steps.length % cols || cols)
-            const isRightCol  = i % cols === cols - 1
-            const isLastItem  = i === steps.length - 1
-
-            return (
-              <StepItem
-                key={step.num}
-                step={step}
-                showBorderBottom={!isLastRow && !(isLastItem && steps.length % cols !== 0)}
-                showBorderRight={!isRightCol && steps.length > 1}
-              />
-            )
-          })}
-
-          {/* If odd number of steps, fill empty cell */}
-          {steps.length % 2 !== 0 && (
-            <div className="hidden md:block" />
-          )}
-        </div>
-
-        {/* RFE note inside same container */}
-        {rfeNote && (
-          <div className="border-t border-gray-100 px-5 py-4">
-            <p className="text-sm font-semibold text-zenmo-secondary mb-1">
-              关于补件（RFE）
-            </p>
-            <p className="text-sm text-zenmo-text leading-relaxed">
-              在审理过程中，移民局可能发出补件通知（RFE），要求进一步说明或证明材料。通过合理的申请策略，通常可以有效降低补件风险。RFE 并不代表案件会被拒绝，大多数收到补件通知的案件在提供充分材料后仍可获得批准；但补件通常会延长审理周期并增加准备成本，因此在申请前进行结构性分析，通常比事后补救更为重要。
-            </p>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  )
-}
-
 export default function H1BServiceProcess() {
   return (
-    <section className="bg-zenmo-light-bg py-12 md:py-20">
-      <div className="max-w-content mx-auto px-5 md:px-8 lg:px-0">
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="section-heading mb-3"
-        >
-          我们的服务流程
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="section-body mb-10 max-w-2xl"
-        >
-          从初次咨询到拿到结果，阡陌全程陪同推进，确保每个环节清晰可预期
-        </motion.p>
-
-        <div className="flex flex-col gap-6">
-          {phases.map((p, i) => (
-            <PhaseBlock key={p.phase} phase={p} phaseIndex={i} />
-          ))}
-        </div>
-
-      </div>
-    </section>
+    <ServiceProcessSection
+      title="我们的服务流程"
+      subtitle="从初次咨询到拿到结果，阡陌全程陪同推进，确保每个环节清晰可预期"
+      phases={phases}
+    />
   )
 }

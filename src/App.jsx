@@ -7,6 +7,8 @@ const AboutPage       = lazy(() => import('@/pages/AboutPage'))
 const ImmigrationPage = lazy(() => import('@/pages/ImmigrationPage'))
 const H1BPage         = lazy(() => import('@/pages/H1BPage'))
 const L1Page          = lazy(() => import('@/pages/L1Page'))
+const O1Page          = lazy(() => import('@/pages/O1Page'))
+const EB23Page        = lazy(() => import('@/pages/EB23Page'))
 const BusinessPage    = lazy(() => import('@/pages/BusinessPage'))
 const IndividualPage  = lazy(() => import('@/pages/IndividualPage'))
 const ContactPage     = lazy(() => import('@/pages/ContactPage'))
@@ -30,15 +32,17 @@ function AppRoutes() {
       <ScrollToTop />
       <Routes>
         <Route element={<PageLayout />}>
-          <Route path="/"                        element={<HomePage />} />
-          <Route path="/about-us"                element={<AboutPage />} />
-          <Route path="/immigration-law"         element={<ImmigrationPage />} />
-          <Route path="/immigration-law/h-1b"    element={<H1BPage />} />
-          <Route path="/immigration-law/l-1"     element={<L1Page />} />
-          <Route path="/business-law"            element={<BusinessPage />} />
-          <Route path="/individual-law"          element={<IndividualPage />} />
-          <Route path="/contact"                 element={<ContactPage />} />
-          <Route path="*"                        element={<NotFoundPage />} />
+          <Route path="/"                          element={<HomePage />} />
+          <Route path="/about-us"                  element={<AboutPage />} />
+          <Route path="/immigration-law"           element={<ImmigrationPage />} />
+          <Route path="/immigration-law/h-1b"      element={<H1BPage />} />
+          <Route path="/immigration-law/l-1"       element={<L1Page />} />
+          <Route path="/immigration-law/o-1"       element={<O1Page />} />
+          <Route path="/immigration-law/eb-2-3"    element={<EB23Page />} />
+          <Route path="/business-law"              element={<BusinessPage />} />
+          <Route path="/individual-law"            element={<IndividualPage />} />
+          <Route path="/contact"                   element={<ContactPage />} />
+          <Route path="*"                          element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Suspense>

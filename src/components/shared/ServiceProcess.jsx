@@ -56,8 +56,7 @@ export default function ServiceProcess({ variant = 'home' }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.09 }}
-              className="relative bg-white rounded-2xl p-7 border border-gray-100 flex items-start gap-5"
-              style={{ boxShadow: '0 2px 12px rgba(15,23,42,0.05)' }}
+              className="relative bg-white rounded-2xl p-7 border border-gray-100 flex items-start gap-5 shadow-zenmo-md"
             >
               <span className="absolute top-4 right-5 text-[48px] font-bold leading-none select-none text-zenmo-btn1/[0.06]">
                 {step.number}

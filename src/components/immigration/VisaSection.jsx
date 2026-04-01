@@ -5,7 +5,7 @@ import { FileText } from 'lucide-react'
 const workVisas = [
   { title: 'H-1B 非移民工作签证 →', desc: '专业职业工作签证', link: '/immigration-law/h-1b', hasLink: true },
   { title: 'L-1 跨国公司高管签证 →', desc: '跨国企业内部调动', link: '/immigration-law/l-1', hasLink: true },
-  { title: 'O-1 杰出人才工作签证', desc: '杰出能力人才签证', hasLink: false },
+  { title: 'O-1 杰出人才工作签证 →', desc: '杰出能力人才签证', link: '/immigration-law/o-1', hasLink: true },
 ]
 
 const studyVisas = [

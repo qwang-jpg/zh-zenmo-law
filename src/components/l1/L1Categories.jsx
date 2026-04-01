@@ -137,8 +137,7 @@ export default function L1Categories() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.1 }}
-              className="rounded-2xl border border-gray-100 overflow-hidden flex flex-col"
-              style={{ boxShadow: '0 2px 12px rgba(15,23,42,0.05)' }}
+              className="rounded-2xl border border-gray-100 overflow-hidden flex flex-col shadow-zenmo-md"
             >
               {/* Card header */}
               <div className="px-6 pt-6 pb-5" style={{ backgroundColor: cat.accentBg }}>
@@ -195,7 +194,6 @@ export default function L1Categories() {
                   />
                 ))}
               </div>
-
 
             </motion.div>
           ))}
