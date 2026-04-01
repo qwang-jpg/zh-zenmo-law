@@ -19,9 +19,9 @@ export default function ImmigrationHero() {
           transition={{ duration: 0.6 }}
           className="text-[26px] leading-[1.35] md:text-4xl lg:text-[50px] lg:leading-[1.2] font-semibold text-white mb-4 md:mb-6 w-full md:w-[85%] lg:w-[55%]"
         >
-          为不同发展阶段
+          为不同在美阶段
           <br />
-          提供系统化的美国移民法律支持
+          提供系统化移民法律支持
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 30 }}

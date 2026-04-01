@@ -43,7 +43,7 @@ export default function L1Hero() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="text-[28px] leading-[1.3] md:text-4xl lg:text-[50px] lg:leading-[1.15] font-semibold text-white mb-7 md:mb-8"
           >
-            L-1 跨国高管及专业人员签证
+            L-1 签证律师服务
           </motion.h1>
 
           {/* Two-paragraph subtitle with divider */}

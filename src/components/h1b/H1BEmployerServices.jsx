@@ -14,9 +14,9 @@ const services = [
 export default function H1BEmployerServices() {
   return (
     <EmployerServicesSection
-      title="雇主支持服务"
-      mainDescription="我们协助企业建立规范的 H-1B 申请流程，帮助企业更稳定地聘用国际人才。"
-      sideNote="对于有长期国际人才需求的企业，我们可以提供持续法律支持。"
+      title="雇主端支持服务"
+      mainDescription="在雇主立场协助企业建立规范的 H-1B 申请流程，帮助企业更稳定地聘用国际人才。"
+      sideNote="对于有长期国际人才需求的企业，我们可以提供持续稳定的移民法律支持。"
       services={services}
     />
   )

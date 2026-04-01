@@ -43,7 +43,7 @@ export default function O1Hero() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="text-[28px] leading-[1.3] md:text-4xl lg:text-[50px] lg:leading-[1.15] font-semibold text-white mb-7 md:mb-8"
           >
-            O-1 杰出人才签证律师服务
+            O-1 签证律师服务
           </motion.h1>
 
           {/* Two-paragraph subtitle with divider */}
@@ -54,7 +54,7 @@ export default function O1Hero() {
             className="flex flex-col gap-4 mb-8"
           >
             <p className="text-sm md:text-base font-normal text-zenmo-subheading leading-relaxed">
-              O-1 签证适用于在科学、教育、商业、艺术、影视或体育领域具有杰出能力的专业人士。该签证允许申请人在美国从事与其专业领域相关的工作，并根据项目安排获得合法工作身份。
+              O-1 签证适用于在科学、教育、商业、艺术、影视或体育领域具有杰出能力的专业人士。签证允许申请人在美国从事与其专业领域相关的工作，并根据项目安排获得合法工作身份。
             </p>
             <div
               className="w-full h-px"

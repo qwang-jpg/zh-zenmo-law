@@ -107,7 +107,7 @@ export default function O1ServiceProcess() {
   return (
     <ServiceProcessSection
       title="我们的服务流程"
-      subtitle="O-1 申请的核心不只是材料准备，而是通过系统化案件策略与专业法律分析，建立符合移民局审查标准的完整申请体系。"
+      subtitle="O-1 签证无需参与抽签，可全年申请，建议最早在活动开始前 1 年提交申请，确保有充裕时间准备证据材料。"
       phases={phases}
     />
   )

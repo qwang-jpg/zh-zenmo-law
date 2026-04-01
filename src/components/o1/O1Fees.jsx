@@ -78,7 +78,6 @@ export default function O1Fees() {
           ))}
         </motion.div>
 
-        {/* 补充免责说明，与 L1Fees 保持一致 */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -86,7 +85,7 @@ export default function O1Fees() {
           transition={{ delay: 0.15 }}
           className="text-xs text-zenmo-desc-gray leading-relaxed mb-8"
         >
-          * 以上费用均为 USCIS 官方费用，可能随时调整，请以移民局最新公告为准。O-1 申请无需缴纳 ACWIA 培训费。律师费用将在委托协议中单独说明。
+          * 以上费用均为 USCIS 官方费用，可能随时调整，请以移民局最新公告为准。
         </motion.p>
 
         <Link to="/contact" className="btn-primary hover:shadow-lg">

@@ -39,7 +39,7 @@ export default function EB23Hero() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="text-[28px] leading-[1.3] md:text-4xl lg:text-[50px] lg:leading-[1.15] font-semibold text-white mb-7 md:mb-8"
           >
-            EB-2 / EB-3 职业移民绿卡申请服务
+            EB-2 / EB-3 绿卡律师服务
           </motion.h1>
 
           <motion.div

@@ -43,7 +43,7 @@ export default function O1Process() {
   return (
     <TimelineSection
       title="申请时间线参考"
-      subtitle="O-1 签证无需参与抽签，可全年申请，建议最早在活动开始前 1 年提交申请，确保有充裕时间准备证据材料"
+      subtitle="从策略评估到绿卡规划，阡陌全程协助推进，确保每个节点清晰可预期"
       steps={steps}
     />
   )

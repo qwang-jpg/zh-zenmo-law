@@ -18,7 +18,7 @@ const services = [
 export default function L1EmployerServices() {
   return (
     <EmployerServicesSection
-      title="雇主支持服务"
+      title="雇主端支持服务"
       mainDescription="L-1 申请涉及公司结构、岗位设计与跨国关联关系的综合论证。阡陌协助企业从申请策略到后续合规，系统性地降低调派风险，确保在美业务稳定推进。"
       sideNote="对于有持续员工调派需求的企业，我们可以提供长期法律支持。"
       services={services}

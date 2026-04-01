@@ -4,12 +4,12 @@ import { CreditCard } from 'lucide-react'
 
 const greenCardItems = [
   { title: 'EB-1A 杰出人才绿卡',                   desc: '适用于各领域杰出人才',       hasLink: false },
-  { title: 'EB-1B 杰出科研人才',                   desc: '适用于杰出教授和研究人员',     hasLink: false },
-  { title: 'EB-1C 跨国公司高管绿卡',               desc: '适用于跨国公司高管和经理',     hasLink: false },
-  { title: 'EB-2/3 职业移民第二/三类优先 →',       desc: '雇主担保类移民',               hasLink: true, link: '/immigration-law/eb-2-3' },
-  { title: 'EB-2 NIW 国家利益豁免移民',            desc: '无需雇主担保的移民途径',       hasLink: false },
-  { title: 'EB-5 投资移民',                         desc: '投资创造就业移民',             hasLink: false },
-  { title: '亲属移民',                               desc: '基于家庭关系的移民',           hasLink: false },
+  { title: 'EB-1B 杰出科研绿卡',                   desc: '适用于杰出教授和研究人员',     hasLink: false },
+  { title: 'EB-1C 跨国公司绿卡',               desc: '适用于跨国公司高管和经理',     hasLink: false },
+  { title: 'EB-2/3 职业移民绿卡 →',       desc: '雇主担保类移民',               hasLink: true, link: '/immigration-law/eb-2-3' },
+  { title: 'EB-2 NIW 国家利益豁免绿卡',            desc: '无需雇主担保的移民途径',       hasLink: false },
+  { title: 'EB-5 投资移民绿卡',                         desc: '投资创造就业移民',             hasLink: false },
+  { title: '亲属移民绿卡',                               desc: '基于家庭关系的移民',           hasLink: false },
 ]
 
 function GreenCardItem({ item }) {

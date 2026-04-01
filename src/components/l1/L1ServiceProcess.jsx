@@ -53,7 +53,7 @@ export default function L1ServiceProcess() {
   return (
     <ServiceProcessSection
       title="我们的服务流程"
-      subtitle="L-1 申请的核心不只是准备材料，而是通过合理的公司结构、岗位设计及法律论证，使申请符合移民局对跨国公司管理人员或专业知识人员的认定标准，并为后续延期或绿卡路径提前做好规划。"
+      subtitle="L-1 申请的核心不只是准备材料，而是通过合理的公司结构、岗位设计及法律论证，使申请符合移民局对跨国公司管理人员或专业知识人员的认定标准，并为后续延期或绿卡路径提前规划。"
       phases={phases}
     />
   )

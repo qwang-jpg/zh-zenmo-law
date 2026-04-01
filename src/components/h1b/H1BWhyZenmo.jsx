@@ -38,7 +38,7 @@ export default function H1BWhyZenmo() {
   return (
     <WhyZenmoSection
       title="为什么选择阡陌处理 H-1B"
-      subtitle="H-1B 不只是填表递交，更是对职位、背景、雇主合规性的综合论证。我们的工作是把这件事做扎实。"
+      subtitle="H-1B 不仅只是填表递交，更是对职位、背景、雇主合规性的综合论证。且H-1B阶段的申请材料对于后期的绿卡申请都会同步产生影响，系统性的规划才能避免长期隐患。"
       reasons={reasons}
     />
   )

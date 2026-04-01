@@ -52,7 +52,7 @@ export default function H1BHero() {
             className="flex flex-col gap-4 mb-8"
           >
             <p className="text-sm md:text-base font-normal text-zenmo-subheading leading-relaxed">
-              H-1B 是美国最常见的专业工作签证之一，适用于从事专业性岗位的外国人才。该签证允许美国雇主雇佣具备特定专业背景的员工在美国合法工作，并为后续长期身份发展提供基础。
+              H-1B 是最常见的工作签证之一，适用于从事专业性岗位的外国人才。签证允许美国雇主雇佣具备特定专业背景的员工在美国合法工作，并为后续长期身份发展提供基础。
             </p>
             <div
               className="w-full h-px"
